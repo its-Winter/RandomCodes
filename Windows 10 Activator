@@ -1,9 +1,5 @@
 @echo off
-color 9
-
-
 call :isAdmin
-	
 if %errorlevel% == 0 ( 
 goto :run ) 
 else ( echo requesting administrative privileges...

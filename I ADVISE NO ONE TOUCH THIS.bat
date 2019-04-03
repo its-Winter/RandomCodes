@@ -82,7 +82,6 @@ void keyPressed() {
 
 :x
 md %random%
-/folder.
 goto y
 
 :y

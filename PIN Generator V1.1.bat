@@ -268,10 +268,10 @@ echo %num6%
 goto lol
 
 :exit
-echo Are you sure you want to exit? (Y / N)
+echo Are you sure you want to exit? (y / n)
 set input=
 set /p input=
-if %input%==Y exit
-if %input%==N goto Start2
+if %input%==y exit
+if %input%==n goto Start2
 
 :lol

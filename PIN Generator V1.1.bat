@@ -89,7 +89,7 @@ if %input%==7 call :G > %USERPROFILE%\Desktop\4digitpin.txt & goto Start8
 if %input%==8 call :H > %USERPROFILE%\Desktop\5random4digits.txt & goto Start3
 if %input%==9 call :I > %USERPROFILE%\Desktop\6digitpin.txt & goto Start6
 if %input%==10 call :J > %USERPROFILE%\Desktop\5random6digits.txt & goto Start7
-if %input%==11 exit
+if %input%==11 goto exit
 if %input% GTR 11 goto Start2
 if %input% LSS 1 goto Start2
 
@@ -267,5 +267,11 @@ set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random
 echo %num6%
 goto lol
 
+:exit
+echo Are you sure you want to exit? (Y / N)
+set input=
+set /p input=
+if %input%==Y exit
+if %input%==N goto Start2
 
 :lol

@@ -84,11 +84,11 @@ if %input%==2 goto B else goto Start2
 if %input%==3 goto C else goto Start2
 if %input%==4 goto D else goto Start2
 if %input%==5 goto E else goto Start2
-if %input%==6 call :F > %USERPROFILE%\Desktop\randompin.txt & goto Start5
-if %input%==7 call :G > %USERPROFILE%\Desktop\4digitpin.txt & goto Start8
-if %input%==8 call :H > %USERPROFILE%\Desktop\5random4digits.txt & goto Start3
-if %input%==9 call :I > %USERPROFILE%\Desktop\6digitpin.txt & goto Start6
-if %input%==10 call :J > %USERPROFILE%\Desktop\5random6digits.txt & goto Start7
+if %input%==6 call :F > %userprofile%\Desktop\randompin.txt & goto Start5
+if %input%==7 call :G > %userprofile%\Desktop\4digitpin.txt & goto Start8
+if %input%==8 call :H > %userprofile%\Desktop\5random4digits.txt & goto Start3
+if %input%==9 call :I > %userprofile%\Desktop\6digitpin.txt & goto Start6
+if %input%==10 call :J > %userprofile%\Desktop\5random6digits.txt & goto Start7
 if %input%==11 goto exit
 if %input% GTR 11 goto Start2
 if %input% LSS 1 goto Start2
@@ -104,7 +104,7 @@ echo 2) Exit
 set input=
 set /p input= Choice:
 if %input%==1 goto Start2
-if %input%==2 exit
+if %input%==2 goto exit
 if %input% GTR 2 goto A
 if %input% LSS 1 goto A
 
@@ -121,7 +121,7 @@ echo 2) Exit
 set input=
 set /p input= Choice:
 if %input%==1 goto Start2 
-if %input%==2 exit
+if %input%==2 goto exit
 if %input% GTR 2 goto B
 if %input% LSS 1 goto B
 
@@ -151,7 +151,7 @@ echo 2) Exit
 set input=
 set /p input= Choice:
 if %input%==1 goto Start2
-if %input%==2 exit
+if %input%==2 goto exit
 if %input% GTR 2 goto Start2
 if %input% LSS 1 goto Start2
 
@@ -168,7 +168,7 @@ echo 2) Exit
 set input=
 set /p input= Choice:
 if %input%==1 goto Start2 
-if %input%==2 exit
+if %input%==2 goto exit
 if %input% GTR 2 goto D
 if %input% LSS 1 goto D
 
@@ -198,7 +198,7 @@ echo 2) Exit
 set input=
 set /p input= Choice:
 if %input%==1 goto Start2 
-if %input%==2 exit 
+if %input%==2 goto exit 
 if %input% GTR 2 goto E
 if %input% LSS 1 goto E
 

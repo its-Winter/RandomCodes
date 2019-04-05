@@ -59,7 +59,7 @@ goto Start
 
 
 :Start
-title PIN Generator
+title PIN Generator V1.1
 echo This will generate a new PIN
 echo Please save the generated PIN somewhere in case you forget it.
 echo https://www.github.com/its-winter/randomcodes

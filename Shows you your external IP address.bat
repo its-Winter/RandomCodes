@@ -1,11 +1,19 @@
 @echo off
+goto start
+:startover
+echo.
+echo.
+:start
 echo This is your external IPv4 address
-curl -4 "ifconfig.co"
+curl -4 "https://ifconfig.co"
 echo ___________________________________
 echo.
-echo This is your external IPv6 address only if full duplex is enabled on your network else this will not resolve host
-curl -6 "ifconfig.co"
-pause >nul
-
-
-rem sometimes github is weird ok man?
+echo Testing for your external IPv6 address...
+curl -6 --max-time 10 "https://ifconfig.co"2>nul
+IF %ERRORLEVEL% NEQ 0 echo Looks like you probably don't have Full Duplex enabled on your network... && echo or the website is broken with IPv6 currently.
+echo.
+echo Try again? y / n
+set input=
+set /p input=
+if %input% == y goto startover
+if %input% == n exit

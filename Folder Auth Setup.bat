@@ -23,11 +23,10 @@ exit /b
 :run
 @echo off
 color 0b
-cd %systemdrive%%homepath%
 title DELETE THIS SETUP WHEN FINISHED!
-cd %userprofile%
-if exist "Documents\config" do del /Q /A:RH "Documents\config"
-if exist "Documents\config2" do del /Q /A:RH "Documents\config2"
+cd %systemdrive%%homepath%
+if exist "Documents\config" ( del /Q /A:RH "Documents\config" )
+if exist "Documents\config2" ( del /Q /A:RH "Documents\config2" )
 del /Q /A:RH "Documents\config2" >nul 2>nul
 echo:What do you want your password to be? ~ one word please, or else it doesn't work.
 set /p passwd=: 
@@ -41,7 +40,7 @@ cd %systemdrive%%homepath%
 echo:%folder1% > "Documents\config2"
 attrib +H +R "Documents\config"
 attrib +H +R "Documents\config2"
-attrib +H %folder%
+attrib +H "%folder%"
 echo:Alright, Just a second and everything will be good to go!
 call :writeout
 timeout 2 >nul
@@ -75,11 +74,6 @@ echo :run >> Desktop\FolderAuth.bat
 echo:cd %%systemdrive%%%%homepath%%>> Desktop\FolderAuth.bat
 echo:for /f %%%%I in ('more %%userprofile%%\Documents\config') do set password=%%%%I>> Desktop\FolderAuth.bat
 echo:for /f %%%%G in ('more %%userprofile%%\Documents\config2') do set folder=%%%%G>> Desktop\FolderAuth.bat
-::Change '\Desktop\Coding\config' to the file is in that contains the super secret password. Also make sure the file is set to read only to prevent any accidental changes to the password and set to hidden.
-::%userprofile% is C:\Users\<whoever you're logged in as>
-::For me %userprofile% = C:\Users\Winter -- if you don't know what your %userprofile% variable is set to then open cmd and type
-::echo %userprofile%
-::and it will return what it is set to.
 echo :top>> Desktop\FolderAuth.bat
 echo:echo __________________>> Desktop\FolderAuth.bat
 echo:echo.>> Desktop\FolderAuth.bat
@@ -106,7 +100,6 @@ echo:echo.>> Desktop\FolderAuth.bat
 echo:echo Password Accepted!>> Desktop\FolderAuth.bat
 echo:echo Opening Folder...>> Desktop\FolderAuth.bat
 echo:echo ______________________________________________>> Desktop\FolderAuth.bat
-::Also change this directory to the folder you're trying to need authentication for. TIP: Make the folder hidden
 echo:explorer %folder%>> Desktop\FolderAuth.bat
 echo:ping localhost -n 2 ^>nul>> Desktop\FolderAuth.bat
 echo:exit>> Desktop\FolderAuth.bat

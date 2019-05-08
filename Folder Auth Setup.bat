@@ -4,7 +4,7 @@ color 0b
 call :isAdmin
 if %errorlevel% == 0 goto run
 if %errorlevel% NEQ 0 ( echo Requesting Administrative Privileges...
-	title Requesting Administrative Privileges...
+    title Requesting Administrative Privileges...
 	goto :UACPrompt )
 
 exit /b
@@ -52,8 +52,8 @@ echo:title Folder Authentication>> Desktop\FolderAuth.bat
 echo:color 0b>> Desktop\FolderAuth.bat
 echo:cls>> Desktop\FolderAuth.bat
 echo:call :isAdmin>> Desktop\FolderAuth.bat
-echo:if %errorlevel% == 0 goto run>> Desktop\FolderAuth.bat
-echo:if %errorlevel% NEQ 0 ( echo Requesting Administrative Privileges...>> Desktop\FolderAuth.bat
+echo:if %%errorlevel%% == 0 goto run>> Desktop\FolderAuth.bat
+echo:if %%errorlevel%% NEQ 0 ( echo Requesting Administrative Privileges...>> Desktop\FolderAuth.bat
 echo:    title Requesting Administrative Privileges...>> Desktop\FolderAuth.bat
 echo:	goto :UACPrompt )>> Desktop\FolderAuth.bat
 echo:>> Desktop\FolderAuth.bat
@@ -67,7 +67,7 @@ echo:"%%temp%%\getadmin.vbs">> Desktop\FolderAuth.bat
 echo:del "%%temp%%\getadmin.vbs">> Desktop\FolderAuth.bat
 echo:>> Desktop\FolderAuth.bat
 echo :isAdmin>> Desktop\FolderAuth.bat
-echo:fsutil dirty query %systemdrive% ^>nul>> Desktop\FolderAuth.bat
+echo:fsutil dirty query %%systemdrive%% ^>nul>> Desktop\FolderAuth.bat
 echo:exit /b>> Desktop\FolderAuth.bat
 echo:>> Desktop\FolderAuth.bat
 echo :run >> Desktop\FolderAuth.bat
@@ -100,7 +100,7 @@ echo:echo.>> Desktop\FolderAuth.bat
 echo:echo Password Accepted!>> Desktop\FolderAuth.bat
 echo:echo Opening Folder...>> Desktop\FolderAuth.bat
 echo:echo ______________________________________________>> Desktop\FolderAuth.bat
-echo:explorer %folder%>> Desktop\FolderAuth.bat
+echo:explorer %%folder%%>> Desktop\FolderAuth.bat
 echo:ping localhost -n 2 ^>nul>> Desktop\FolderAuth.bat
 echo:exit>> Desktop\FolderAuth.bat
 exit /b

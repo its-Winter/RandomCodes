@@ -27,7 +27,6 @@ title DELETE THIS SETUP WHEN FINISHED!
 cd %systemdrive%%homepath%
 if exist "Documents\config" ( del /Q /A:RH "Documents\config" )
 if exist "Documents\config2" ( del /Q /A:RH "Documents\config2" )
-del /Q /A:RH "Documents\config2" >nul 2>nul
 echo:What do you want your password to be? ~ one word please, or else it doesn't work.
 set /p passwd=: 
 echo:%passwd% > "Documents\config"

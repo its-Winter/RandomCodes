@@ -39,4 +39,4 @@ explorer "https://www.github.com/its-winter/randomcodes"&goto halt
 :notsupported
 echo ============================================================================&echo.&echo Sorry! Your version is not supported.&echo.
 :halt
-exit 
+exit

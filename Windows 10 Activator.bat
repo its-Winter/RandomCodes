@@ -1,12 +1,12 @@
 @echo off
-color 9
-
+color 0c
 
 call :isAdmin
 	
 if %errorlevel% == 0 ( 
 goto :run ) 
-if %errorlevel% NEQ 0 ( echo:requesting administrative privileges...
+if %errorlevel% NEQ 0 ( echo:Requesting Administrative Privileges...
+	title Requesting Administrative Privileges...
 	goto :UACPrompt 
 )
 exit /b

@@ -1,5 +1,5 @@
 # Thank you for coming
-This repository is for my random codes (Primarily CMD/Batch files) that I create while I'm working on coding in general.
+This repository is for my random scripts (Primarily CMD/Batch scripts) that I create while I'm working on coding in general.
 I plan to get a good grip on batch file making and understanding the windows command prompt.
 Take a look at some of the codes yourself if you'd like! None are harmful to any part of Windows or any files!
 It will 100% probably say that "This file may be harmful" on download and if you keep it then windows will always say that it 

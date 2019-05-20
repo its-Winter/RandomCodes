@@ -1,8 +1,11 @@
 :: This script is a great way to practice redirection and was kinda fun to make i guess. 
-:: 'wmic os' shows pretty much everything abou tthe operating system you could ask for
+:: 'wmic os' shows pretty much everything about the operating system you could ask for
 :: then with pipe '|' i can search for the string of each OS and if it fails then you dont seem to have the OS it looks for.
 :: And the redirection part is && and || where && means if the command can find the stated string then say you have it
 :: or || which means if the command cannot find the string stated then says you don't have it and it moves on to the next one.
+:: Also added "timeout /T %random:~-1%" which adds a cool aspect to the script. 
+:: %random:~-1% picks a random number and times out the script for the random amount of seconds. I feel like this really makes
+:: it seem like the script is doing something lmao. c:
 
 @echo off
 color 0c
@@ -32,5 +35,5 @@ wmic os | find /i "Home Single Language">nul && ( echo Windows Home Single Langu
 timeout /T %random:~-1% >nul
 wmic os | find /i "Home Country Specific">nul && ( echo Windows Home Country Specific found! & pause>nul ) || echo You don't seem to have Windows Home Country Specific...
 echo You don't seem to have any Windows 10 OS version that I can find...
-:: This is just for if the script cannot find any of the above OSes it states that it cannot find it.
+:: This is just for if the script cannot find any of the above OS versions it states that it cannot find it.
 pause >nul

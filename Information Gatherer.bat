@@ -6,16 +6,19 @@ cls
 echo:Whatcha need?
 echo:[1] Basic Information
 echo:[2] Network information
-echo:[3] CPU Information
+echo:[3] System Information
+echo:[4] Advanced Information
 echo:----------------------------------
 set /p input=: 
 if %input%==1 goto :Basic
 if %input%==2 goto :Net
-if %input%==3 goto :CPU
-if %input% GTR 3 echo: invalid reponse try again & goto :mainmenu
+if %input%==3 goto :System
+if %input%==4 goto :Advanced
+if %input% GTR 4 echo: invalid reponse try again & goto :mainmenu
 if %input% LSS 1 echo: invalid reponse try again & goto :mainmenu
 
 :Basic
+set currentlabel=:Basic
 echo:----------------------------------
 echo:
 echo:You are logged in as...
@@ -23,25 +26,22 @@ echo:%username% || echo:Couldn't find it.. Error 404
 echo:
 echo:----------------------------------
 echo:
+echo:Your System Timezone is...
+wmic timezone get description | find "(" || echo:Couldn't find it.. Error 404
+echo:----------------------------------
+echo:
 echo Your PC's name is...
 echo:%computername% || echo:Couldn't find it.. Error 404
 echo:
 echo:----------------------------------
-:tryagain2
 echo:
-echo:Where to now?
-echo:[1] Go to main menu
-echo:[2] Show this page again
-echo:[3] Exit the script
+echo:Windows Information
+wmic os get caption,version,buildnumber,serialnumber
 echo:----------------------------------
-set /p yes=: 
-if %yes%==1 goto :mainmenu
-if %yes%==2 goto :Basic
-if %yes%==3 exit
-if %yes% GTR 3 echo: invalid reponse try again & goto :tryagain2
-if %yes% LSS 1 echo: invalid reponse try again & goto :tryagain2
+goto :tryagain
 
 :Net
+set currentlabel=:Net
 cls
 echo:----------------------------------
 echo:
@@ -61,25 +61,14 @@ curl -6 "https://ifconfig.co" || ( echo:Looks like you don't have IPv6 on your e
 )
 echo:
 echo:----------------------------------
-:tryagain1
-echo:
-echo:Where to now?
-echo:[1] Go to main menu
-echo:[2] Show this page again
-echo:[3] Exit the script
-echo:----------------------------------
-set /p hm=: 
-if %hm%==1 goto :mainmenu
-if %hm%==2 goto :Net
-if %hm%==3 exit
-if %hm% GTR 3 echo: invalid reponse try again & goto :tryagain1
-if %hm% LSS 1 echo: invalid reponse try again & goto :tryagain1
+goto :tryagain
 
-:CPU
+:System
+set currentlabel=:System
 echo:----------------------------------
 echo:
 echo:CPU Identification
-echo:%PROCESSOR_IDENTIFIER% || echo:Couldn't find it.. Error 404
+wmic cpu get name | find "I" || wmic cpu get name | find "A" || echo:Couldn't find it.. Error 404
 echo:
 echo:----------------------------------
 echo:
@@ -88,20 +77,48 @@ echo:%NUMBER_OF_PROCESSORS% || echo:Couldn't find it.. Error 404
 echo:
 echo:----------------------------------
 echo:
-echo CPU Architecture
-echo:%PROCESSOR_ARCHITECTURE% || echo:Couldn't find it.. Error 404
+echo:CPU Architecture
+wmic computersystem get systemtype | find "x" || echo:Couldn't find it.. Error 404
 echo:
 echo:----------------------------------
-:tryagain3
+echo:
+echo:Total Amount of System Memory
+wmic os get TotalVisibleMemorySize | find "1" || wmic os get TotalVisibleMemorySize | find "2" || wmic os get TotalVisibleMemorySize | find "3" ||  wmic os get TotalVisibleMemorySize | find "4" ||  wmic os get TotalVisibleMemorySize | find "5" ||  wmic os get TotalVisibleMemorySize | find "6" ||  wmic os get TotalVisibleMemorySize | find "7" ||  wmic os get TotalVisibleMemorySize | find "8" ||  wmic os get TotalVisibleMemorySize | find "9" ||  echo:Couldn't find it.. Error 404
+echo:
+echo:----------------------------------
+goto :tryagain
+
+:Advanced
+set currentlabel=:Advanced
+echo:----------------------------------
+echo:
+echo:Disk Volumes
+wmic partition get name,size,type
+echo:----------------------------------
+echo:
+echo:BIOS Information
+wmic bios get caption,manufacturer
+echo:----------------------------------
+echo:
+echo:Boot Type
+wmic computersystem get bootupstate | find "N" || wmic computersystem get bootupstate | find "F"
+echo:
+echo:----------------------------------
+echo:
+echo:Motherboard Information
+wmic baseboard get manufacturer,product,serialnumber,status
+echo:----------------------------------
+
+:tryagain
 echo:
 echo:Where to now?
 echo:[1] Go to main menu
 echo:[2] Show this page again
 echo:[3] Exit the script
 echo:----------------------------------
-set /p input3=: 
-if %input3%==1 goto :mainmenu
-if %input3%==2 goto :CPU
-if %input3%==3 exit
-if %input3% GTR 3 echo: invalid reponse try again & goto :tryagain3
-if %input3% LSS 1 echo: invalid reponse try again & goto :tryagain3
+set /p input2=: 
+if %input2%==1 goto :mainmenu
+if %input2%==2 goto %currentlabel%
+if %input2%==3 exit
+if %input2% GTR 3 echo: invalid reponse try again & goto :tryagain
+if %input2% LSS 1 echo: invalid reponse try again & goto :tryagain

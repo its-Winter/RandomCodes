@@ -6,7 +6,7 @@
 :: Also added "timeout /T %random:~-1%" which adds a cool aspect to the script. 
 :: %random:~-1% picks a random number and times out the script for the random amount of seconds. I feel like this really makes
 :: it seem like the script is doing something lmao. c:
-
+ 
 @echo off
 color 0c
 title Searching for OS...

@@ -20,7 +20,7 @@ del "%temp%\getadmin.vbs"
 fsutil dirty query %systemdrive% >nul
 exit /b
 
-:run 
+:run
 title Contact me on Discord at its.Winter#6512
 cls
 echo:============================================================================

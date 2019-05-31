@@ -5,4 +5,6 @@ Take a look at some of the codes yourself if you'd like! None are harmful to any
 Check [this](https://webapps.stackexchange.com/questions/87954/how-do-i-download-a-particular-file-from-github) out to see the best way to get one of my codes without a hassle.
 Anyway thanks for coming to this page in the 
 first place, I appreciate it!
-GIVE ME IDEAS FOR SCRIPTS PLEASE contact me at its.Winter#6512 on discord!! :))
+### GIVE ME IDEAS FOR SCRIPTS PLEASE!
+You can contat me throught my [Discord server](https://discord.gg/x58UEjb)
+Or add me on discord @ its.Winter#6512

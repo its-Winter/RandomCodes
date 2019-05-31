@@ -1,6 +1,6 @@
 @echo off
 title Info
-color 0c
+color 3
 :clearscreen
 cls
 :mainmenu
@@ -9,7 +9,7 @@ echo:[1] Basic Information
 echo:[2] Network information
 echo:[3] System Information
 echo:[4] Advanced Information
-echo:[5] Optional Inforation
+echo:[5] Optional Information
 echo:[6] Exit this script
 echo:----------------------------------
 set /p input=: 
@@ -128,6 +128,11 @@ echo:----------------------------------
 echo:
 echo:Some random info about users...
 wmic desktop get Name, Screensaveractive, wallpaper, wallpaperstretched, wallpapertiled
+echo:----------------------------------
+echo:
+echo:Boot Device
+wmic os get Bootdevice | find "\"
+echo:
 echo:----------------------------------
 goto :tryagain
 

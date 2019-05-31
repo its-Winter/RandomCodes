@@ -17,7 +17,7 @@ if %input%==1 goto :Basic
 if %input%==2 goto :Net
 if %input%==3 goto :System
 if %input%==4 goto :Advanced
-if %input%==5 goto :Optionalinforation
+if %input%==5 goto :Optionalinformation
 if %input%==6 ( exit
 ) else ( 
     echo:----------------------------------

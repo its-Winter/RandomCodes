@@ -16,7 +16,12 @@ Take a look at some of the codes yourself if you'd like! **None are harmful to a
 Check [this](https://webapps.stackexchange.com/questions/87954/how-do-i-download-a-particular-file-from-github) out to see the best way to get one of my codes without a hassle.
 Anyway thanks for coming to this page in the 
 first place, I appreciate it!
-### GIVE ME IDEAS FOR SCRIPTS PLEASE!
+
+<h2 align="center">
+  <br>
+  Give me ideas for scripts please!
+</h2>
+
 You can contact on discord @ its.Winter#6512
 Or join my server below.
 

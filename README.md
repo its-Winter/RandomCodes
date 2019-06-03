@@ -20,7 +20,7 @@ first place, I appreciate it!
 You can contact on discord @ its.Winter#6512
 Or join my server below.
 
-<h1 align="left">
+<h1 align="center">
   <a href="https://discord.gg/x58UEjb">
     <img src="https://discordapp.com/api/guilds/399500360877867018/widget.png?style=banner2" alt="Discord Server">
   </a>

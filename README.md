@@ -21,12 +21,12 @@ first place, I appreciate it!
   <br>
   Give me ideas for scripts please!
 </h2>
-
-You can contact on discord @ its.Winter#6512
-Or join my server below.
-
-<h1 align="center">
+<p align="center">
+  You can contact on discord @ its.Winter#6512 
+  Or join my server below.
+</p>
+<h2 align="center">
   <a href="https://discord.gg/x58UEjb">
     <img src="https://discordapp.com/api/guilds/399500360877867018/widget.png?style=banner2" alt="Discord Server">
   </a>
-</h1>
+</h2>

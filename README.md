@@ -17,5 +17,11 @@ Check [this](https://webapps.stackexchange.com/questions/87954/how-do-i-download
 Anyway thanks for coming to this page in the 
 first place, I appreciate it!
 ### GIVE ME IDEAS FOR SCRIPTS PLEASE!
-You can contact me throught my [Discord server](https://discord.gg/x58UEjb)
-Or add me on discord @ its.Winter#6512
+You can contact on discord @ its.Winter#6512
+Or join my server below.
+
+<h1 align="left">
+  <a href="https://discord.gg/x58UEjb">
+    <img src="https://discordapp.com/api/guilds/399500360877867018/widget.png?style=banner2" alt="Discord Server">
+  </a>
+</h1>

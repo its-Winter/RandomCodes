@@ -5,7 +5,7 @@
   Batch Scripts by the best in the world
   <br>
 </h1>
-<h2 align="center">
+<h2 style="background-color:rgb(217, 217, 217);" align="center">
   <br>
   Thank You for coming!
 </h2>

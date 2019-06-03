@@ -6,10 +6,10 @@
   Batch Scripts by the best in the world
   <br>
 </h1>
-<h2 align="center" style="background-color:#bdbdbd;">
+<h1 align="center" style="background-color:#bdbdbd">
   <br>
   Thank You for coming!
-</h2>
+</h1>
   
 This repository is for my random scripts (Primarily CMD/Batch scripts) that I create while I'm working on coding in general.
 I plan to get a good grip on batch file making and understanding the windows command prompt.

@@ -2,9 +2,10 @@
 title Folder Authentication
 color 0b
 call :isAdmin
-if %errorlevel% == 0 goto run
-if %errorlevel% NEQ 0 ( echo Requesting Administrative Privileges...
-    title Requesting Administrative Privileges...
+if %errorlevel% == 0 ( goto run
+) else (
+	echo Requesting Administrative Privileges...
+        title Requesting Administrative Privileges...
 	goto :UACPrompt 
 )
 exit /b

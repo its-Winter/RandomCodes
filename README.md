@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-## Thank you for coming
+# Thank you for coming
 This repository is for my random scripts (Primarily CMD/Batch scripts) that I create while I'm working on coding in general.
 I plan to get a good grip on batch file making and understanding the windows command prompt.
 Take a look at some of the codes yourself if you'd like! **None are harmful to any part of Windows or any files!**

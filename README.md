@@ -2,7 +2,7 @@
   <br>
   <img src="https://www.filecluster.com/howto/wp-content/uploads/2016/02/CMD-Windows-10.png" alt="Random Batch Codes">
   <br>
-  Batch Codes by the unofficial best coder in the world
+  Batch Scripts by the best in the world
   <br>
 </h1>
 

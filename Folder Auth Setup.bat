@@ -101,6 +101,5 @@ echo:echo Opening Folder...>> Desktop\FolderAuth.bat
 echo:echo ______________________________________________>> Desktop\FolderAuth.bat
 echo:explorer "%%folder%%">> Desktop\FolderAuth.bat
 echo:timeout 2 ^>nul>> Desktop\FolderAuth.bat
-echo:ping localhost -n 2 ^>nul>> Desktop\FolderAuth.bat
 echo:exit>> Desktop\FolderAuth.bat
 exit /b

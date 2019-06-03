@@ -1,8 +1,6 @@
 @echo off
 color 0c
-
-call :isAdmin
-	
+call :isAdmin	
 if %errorlevel% == 0 ( 
 goto :run ) 
 if %errorlevel% NEQ 0 ( echo:Requesting Administrative Privileges...

@@ -5,8 +5,8 @@ call :isAdmin
 if %errorlevel% == 0 goto run
 if %errorlevel% NEQ 0 ( echo Requesting Administrative Privileges...
     title Requesting Administrative Privileges...
-	goto :UACPrompt )
-
+	goto :UACPrompt 
+)
 exit /b
 
 :UACPrompt
@@ -27,7 +27,6 @@ title DELETE THIS SETUP WHEN FINISHED!
 cd %systemdrive%%homepath%
 if exist "Documents\config" ( del /Q /A:RH "Documents\config" )
 if exist "Documents\config2" ( del /Q /A:RH "Documents\config2" )
-del /Q /A:RH "Documents\config2" >nul 2>nul
 echo:What do you want your password to be? ~ one word please, or else it doesn't work.
 set /p passwd=: 
 echo:%passwd% > "Documents\config"
@@ -52,8 +51,8 @@ echo:title Folder Authentication>> Desktop\FolderAuth.bat
 echo:color 0b>> Desktop\FolderAuth.bat
 echo:cls>> Desktop\FolderAuth.bat
 echo:call :isAdmin>> Desktop\FolderAuth.bat
-echo:if %errorlevel% == 0 goto run>> Desktop\FolderAuth.bat
-echo:if %errorlevel% NEQ 0 ( echo Requesting Administrative Privileges...>> Desktop\FolderAuth.bat
+echo:if %%errorlevel%% == 0 goto run>> Desktop\FolderAuth.bat
+echo:if %%errorlevel%% NEQ 0 ( echo Requesting Administrative Privileges...>> Desktop\FolderAuth.bat
 echo:    title Requesting Administrative Privileges...>> Desktop\FolderAuth.bat
 echo:	goto :UACPrompt )>> Desktop\FolderAuth.bat
 echo:>> Desktop\FolderAuth.bat
@@ -67,13 +66,13 @@ echo:"%%temp%%\getadmin.vbs">> Desktop\FolderAuth.bat
 echo:del "%%temp%%\getadmin.vbs">> Desktop\FolderAuth.bat
 echo:>> Desktop\FolderAuth.bat
 echo :isAdmin>> Desktop\FolderAuth.bat
-echo:fsutil dirty query %systemdrive% ^>nul>> Desktop\FolderAuth.bat
+echo:fsutil dirty query %%systemdrive%% ^>nul>> Desktop\FolderAuth.bat
 echo:exit /b>> Desktop\FolderAuth.bat
 echo:>> Desktop\FolderAuth.bat
 echo :run >> Desktop\FolderAuth.bat
 echo:cd %%systemdrive%%%%homepath%%>> Desktop\FolderAuth.bat
-echo:for /f %%%%I in ('more %%userprofile%%\Documents\config') do set password=%%%%I>> Desktop\FolderAuth.bat
-echo:for /f %%%%G in ('more %%userprofile%%\Documents\config2') do set folder=%%%%G>> Desktop\FolderAuth.bat
+echo:for /f %%%%I in ('more %%userprofile%%\Documents\config') do set password="%%%%I">> Desktop\FolderAuth.bat
+echo:for /f %%%%G in ('more %%userprofile%%\Documents\config2') do set folder="%%%%G">> Desktop\FolderAuth.bat
 echo :top>> Desktop\FolderAuth.bat
 echo:echo __________________>> Desktop\FolderAuth.bat
 echo:echo.>> Desktop\FolderAuth.bat
@@ -84,8 +83,8 @@ echo:echo You have 1 attempt only.>> Desktop\FolderAuth.bat
 echo:echo Enter password>> Desktop\FolderAuth.bat
 echo:echo ______________________________________________>> Desktop\FolderAuth.bat
 echo:set /p pass= : >> Desktop\FolderAuth.bat
-echo:if %%pass%% == %%password%% goto correct>> Desktop\FolderAuth.bat
-echo:if %%pass%% NEQ %%password%% goto fail>> Desktop\FolderAuth.bat
+echo:if "%%pass%%" == "%%password%%" goto correct>> Desktop\FolderAuth.bat
+echo:if "%%pass%%" NEQ "%%password%%" goto fail>> Desktop\FolderAuth.bat
 echo:cls>> Desktop\FolderAuth.bat
 echo:goto top>> Desktop\FolderAuth.bat
 echo :fail>> Desktop\FolderAuth.bat
@@ -100,7 +99,8 @@ echo:echo.>> Desktop\FolderAuth.bat
 echo:echo Password Accepted!>> Desktop\FolderAuth.bat
 echo:echo Opening Folder...>> Desktop\FolderAuth.bat
 echo:echo ______________________________________________>> Desktop\FolderAuth.bat
-echo:explorer %folder%>> Desktop\FolderAuth.bat
+echo:explorer "%%folder%%">> Desktop\FolderAuth.bat
+echo:timeout 2 ^>nul>> Desktop\FolderAuth.bat
 echo:ping localhost -n 2 ^>nul>> Desktop\FolderAuth.bat
 echo:exit>> Desktop\FolderAuth.bat
 exit /b

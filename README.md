@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <h1 align="center">
   <br>
   <img src="https://www.filecluster.com/howto/wp-content/uploads/2016/02/CMD-Windows-10.png" alt="Random Batch Codes">
@@ -5,7 +6,7 @@
   Batch Scripts by the best in the world
   <br>
 </h1>
-<h2 style="background-color:#bdbdbd" align="center">
+<h2 align="center" style="background-color:#bdbdbd;">
   <br>
   Thank You for coming!
 </h2>

@@ -1,3 +1,11 @@
+<h1 align="center">
+  <br>
+  <img src="https://www.filecluster.com/howto/wp-content/uploads/2016/02/CMD-Windows-10.png" alt="Random Batch Codes">
+  <br>
+  Batch Codes by the unofficial best coder in the world
+  <br>
+</h1>
+
 ## Thank you for coming
 This repository is for my random scripts (Primarily CMD/Batch scripts) that I create while I'm working on coding in general.
 I plan to get a good grip on batch file making and understanding the windows command prompt.

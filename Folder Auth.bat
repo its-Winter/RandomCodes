@@ -2,11 +2,12 @@
 title Folder Authentication
 color 0b
 call :isAdmin
-if %errorlevel% == 0 goto run
-if %errorlevel% NEQ 0 ( echo Requesting Administrative Privileges...
-    title Requesting Administrative Privileges...
-	goto :UACPrompt )
-
+if %errorlevel% == 0 ( goto run
+) else (
+	echo Requesting Administrative Privileges...
+        title Requesting Administrative Privileges...
+	goto :UACPrompt 
+)
 exit /b
 
 :UACPrompt
@@ -71,8 +72,8 @@ echo:exit /b>> Desktop\FolderAuth.bat
 echo:>> Desktop\FolderAuth.bat
 echo :run >> Desktop\FolderAuth.bat
 echo:cd %%systemdrive%%%%homepath%%>> Desktop\FolderAuth.bat
-echo:for /f %%%%I in ('more %%userprofile%%\Documents\config') do set password=%%%%I>> Desktop\FolderAuth.bat
-echo:for /f %%%%G in ('more %%userprofile%%\Documents\config2') do set folder=%%%%G>> Desktop\FolderAuth.bat
+echo:for /f %%%%I in ('more %%userprofile%%\Documents\config') do set password="%%%%I">> Desktop\FolderAuth.bat
+echo:for /f %%%%G in ('more %%userprofile%%\Documents\config2') do set folder="%%%%G">> Desktop\FolderAuth.bat
 echo :top>> Desktop\FolderAuth.bat
 echo:echo __________________>> Desktop\FolderAuth.bat
 echo:echo.>> Desktop\FolderAuth.bat
@@ -83,8 +84,8 @@ echo:echo You have 1 attempt only.>> Desktop\FolderAuth.bat
 echo:echo Enter password>> Desktop\FolderAuth.bat
 echo:echo ______________________________________________>> Desktop\FolderAuth.bat
 echo:set /p pass= : >> Desktop\FolderAuth.bat
-echo:if %%pass%% == %%password%% goto correct>> Desktop\FolderAuth.bat
-echo:if %%pass%% NEQ %%password%% goto fail>> Desktop\FolderAuth.bat
+echo:if "%%pass%%" == "%%password%%" goto correct>> Desktop\FolderAuth.bat
+echo:if "%%pass%%" NEQ "%%password%%" goto fail>> Desktop\FolderAuth.bat
 echo:cls>> Desktop\FolderAuth.bat
 echo:goto top>> Desktop\FolderAuth.bat
 echo :fail>> Desktop\FolderAuth.bat
@@ -99,7 +100,7 @@ echo:echo.>> Desktop\FolderAuth.bat
 echo:echo Password Accepted!>> Desktop\FolderAuth.bat
 echo:echo Opening Folder...>> Desktop\FolderAuth.bat
 echo:echo ______________________________________________>> Desktop\FolderAuth.bat
-echo:explorer %%folder%%>> Desktop\FolderAuth.bat
-echo:ping localhost -n 2 ^>nul>> Desktop\FolderAuth.bat
+echo:explorer "%%folder%%">> Desktop\FolderAuth.bat
+echo:timeout 2 ^>nul>> Desktop\FolderAuth.bat
 echo:exit>> Desktop\FolderAuth.bat
 exit /b

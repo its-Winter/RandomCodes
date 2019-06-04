@@ -1,6 +1,6 @@
 @echo off
-set /a num4 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%
-set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num4=%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num6=%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 cls
 goto :Start2
 
@@ -13,7 +13,7 @@ goto :Start2
 
 :Start7
 cls
-echo:Your 5 6 Digit Random PINs were successfully generated to a text file!
+echo:Your 5, 6 Digit Random PINs were successfully generated to a text file!
 echo:Press any key to make more...
 pause >nul
 goto :Start2
@@ -41,7 +41,7 @@ goto :Start2
 
 :Start3
 cls
-echo:Your 5 4 Digit Random PINs were successfully generated to a text file!
+echo:Your 5, 4 Digit Random PINs were successfully generated to a text file!
 echo:Press any key to make more...
 pause >nul
 goto :Start2
@@ -95,7 +95,7 @@ goto :more
 :B
 cls
 echo:Your 4 Digit PIN is: 
-set /a num4 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num4=%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num4%
 echo:___________________________________________________________________
 goto :more
@@ -104,19 +104,19 @@ goto :more
 cls
 echo:Your 5, 4 Digit PINs are:
 echo:
-set /a num4 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num4=%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num4%
 echo:
-set /a num4 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num4=%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num4%
 echo:
-set /a num4 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num4=%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num4%
 echo:
-set /a num4 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num4=%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num4%
 echo:
-set /a num4 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num4=%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num4%
 echo:________________________________________________________________________________________________________________________
 goto :more
@@ -124,7 +124,7 @@ goto :more
 :D
 cls
 echo:Your 6 Digit PIN is: 
-set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num6=%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num6%
 echo:___________________________________________________________________
 goto :more
@@ -133,19 +133,19 @@ goto :more
 cls
 echo:Your 5 6 Digit PINs are:
 echo:
-set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num6=%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num6%
 echo:
-set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num6=%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num6%
 echo:
-set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num6=%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num6%
 echo:
-set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num6=%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num6%
 echo:
-set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num6=%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num6%
 echo:________________________
 goto :more
@@ -158,7 +158,7 @@ exit /b
 :G 
 echo:Your 4 Digit PIN is: 
 echo:
-set /a num4 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num4=%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num4%
 exit /b
  
@@ -166,19 +166,19 @@ exit /b
 cls
 echo:Your 5, 4 Digit PINs are:
 echo:
-set /a num4 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num4=%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num4%
 echo:
-set /a num4 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num4=%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num4%
 echo:
-set /a num4 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num4=%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num4%
 echo:
-set /a num4 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num4=%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num4%
 echo:
-set /a num4 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num4=%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num4%
 exit /b
 
@@ -186,7 +186,7 @@ exit /b
 cls
 echo:Your 6 Digit PIN is: 
 echo:
-set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num6=%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num6%
 exit /b
 
@@ -194,19 +194,19 @@ exit /b
 cls
 echo:Your 5, 6 Digit PINs are:
 echo:
-set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num6=%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num6%
 echo:
-set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num6=%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num6%
 echo:
-set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num6=%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num6%
 echo:
-set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num6=%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num6%
 echo:
-set /a num6 =%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
+set /a num6=%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%%random:~-1%
 echo:%num6%
 exit /b
 

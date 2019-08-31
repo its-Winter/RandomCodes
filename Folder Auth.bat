@@ -5,7 +5,7 @@ call :isAdmin
 if %errorlevel% == 0 ( goto run
 ) else (
 	echo Requesting Administrative Privileges...
-        title Requesting Administrative Privileges...
+    title Requesting Administrative Privileges...
 	goto :UACPrompt 
 )
 exit /b
@@ -34,16 +34,15 @@ echo:%passwd% > "Documents\config"
 echo:What folder do you want to lock? 
 echo:example ~ Documents\Secrets
 set /p folder=: 
-cd %folder%
-for /f %%H in ('cd') do set folder1=%%H
-cd %systemdrive%%homepath%
-echo:%folder1% > "Documents\config2"
+cd "%folder%"
+echo:%CD% > "Documents\config2"
 attrib +H +R "Documents\config"
 attrib +H +R "Documents\config2"
 attrib +H "%folder%"
 echo:Alright, Just a second and everything will be good to go!
 call :writeout
 timeout 2 >nul
+cd %systemdrive%%homepath%
 "Desktop\FolderAuth.bat" && exit
 
 :writeout

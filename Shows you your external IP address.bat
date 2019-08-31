@@ -16,7 +16,6 @@ if %ERRORLEVEL% NEQ 0 (
 )
 echo.
 echo Try again? y / n
-set input=
 set /p input=
 if %input% == y goto startover
 if %input% == n exit

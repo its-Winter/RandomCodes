@@ -14,7 +14,7 @@
 This repository is for my random scripts (Primarily CMD/Batch scripts) that I create while I'm working on coding in general.
 I plan to get a good grip on batch file making and understanding the windows command prompt.
 Take a look at some of the codes yourself if you'd like! **None are harmful to any part of Windows or any files!**
-Check [this](https://webapps.stackexchange.com/questions/87954/how-do-i-download-a-particular-file-from-github) out to see the best way to get one of my codes without a hassle.
+You can download the scripts from the repository here on GitLab! (All browsers will say it's harmful but I promise they're not. It says that since they're batch scripts and windows can't check to see what the code does by itself so it deems it unsafe. If there's otherwise then please contact me!)
 Anyway thanks for coming to this page in the 
 first place, I appreciate it!
 

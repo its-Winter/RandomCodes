@@ -8,7 +8,7 @@
 :: it seem like the script is doing something lmao. c:
  
 @echo off
-color 0c
+color 0b
 title Searching for OS...
 cls
 wmic os | find /i "home">nul && ( echo Windows Home found! & pause>nul ) || echo You don't seem to have Windows Home...

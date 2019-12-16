@@ -3,7 +3,7 @@ Title Installing Paper 1.14.4...
 cd "%homedrive%%homepath%\Desktop"
 mkdir "Paper 1.14.4"
 cd "Paper 1.14.4"
-curl -sSL https://papermc.io/api/v1/paper/1.14.4/236/download --output paper1.14.4.jar
+curl -sSL https://papermc.io/api/v1/paper/1.14.4/237/download --output paper1.14.4.jar
 java -Xmx4G -jar paper1.14.4.jar
 echo:eula=true> eula.txt
 cls

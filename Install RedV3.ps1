@@ -1,10 +1,13 @@
-function prompt {'> '}
 Set-ExecutionPolicy Bypass -Scope Process -Force
+function prompt {'> '}
 $host.ui.rawui.WindowTitle = "Checking Python Version..."
-$pyversion = $(-split $(python -V))[-1]
-if ($pyversion -lt '3.7.0') { Write-Output 'You have a version older than 3.7 and it is required to update.'; $vergood = 1 }
-elseif ($pyversion -ge '3.8.0') { Write-Output 'You have the latest version of python!'; $vergood = 0 }
-
+$ErrorActionPreference = 'SilentlyContinue'
+$pyversion = $(-split $(py --version))[-1]
+if ($pyversion) {
+    if ($pyversion -lt '3.7.0') { Write-Output 'You have a version older than 3.7 and it is required to update.'; $vergood = 1 }
+    elseif ($pyversion -eq '3.8.1') { Write-Output 'You have the latest version of python!'; $vergood = 0 }
+    elseif ($pyversion -ge '3.8.0') { Write-Output 'You have a good enough version of python.'; $vergood = 0 }
+} else { Write-Output 'You do not have python installed.'; $vergood = 1 }
 $host.ui.RawUI.WindowTitle = "Installing Prerequisites..."
 function prerequisites {
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
@@ -33,7 +36,7 @@ $setvenv = {
     }
 }
 &$setvenv
-"$venv\Scripts\activate.ps1"
+& "$venv\Scripts\activate.ps1"
 Clear-Host; Set-Location "$env:USERPROFILE"
 $host.ui.RawUI.WindowTitle = "Red V3 is ready to go!"
 pip install --upgrade pip >$null

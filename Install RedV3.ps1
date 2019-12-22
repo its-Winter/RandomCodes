@@ -9,16 +9,16 @@ $host.ui.RawUI.WindowTitle = "Installing Prerequisites..."
 function prerequisites {
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
     choco install git --params "/GitOnlyOnPath /WindowsTerminal" -y 
-    if ($vergood = 1) { choco install python -y }
+    if ($vergood = 1) { choco install jre8 python -y }
     elseif ($vergood = 0) { choco install jre8 -y }
 }
 prerequisites
 Clear-Host
 Write-Output 'Installed Red Prerequisites!'
-timeout.exe 2 >$null
+timeout.exe 1 >$null
 $host.ui.RawUI.WindowTitle = "Setup the Virtual Environment!"
-Clear-Host
 $setvenv = {
+    Clear-Host
     Write-Output 'Now time to setup the virtual environment.
     Where do you want the environment? Ex: path\to\venv'
     $in = Read-Host ':'
@@ -27,7 +27,7 @@ $setvenv = {
         '
         &$setvenv; break }
     else {
-        $venv = $($env:USERPROFILE + '\' + $in)
+        $venv = $($env:USERPROFILE + '\' + $in + '\')
         Write-Output 'Setting up venv now!'
         python.exe -m venv "$venv"
     }

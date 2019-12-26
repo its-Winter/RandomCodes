@@ -32,10 +32,10 @@ $setvenv = {
     else {
         $venv = $($env:USERPROFILE + '\' + $in + '\')
         Write-Output 'Setting up venv now!'
-        python.exe -m venv "$venv"
+        python.exe -m venv "$venv"; $re = 'defined'
     }
 }
-&$setvenv
+if (!$re) { &$setvenv }
 & "$venv\Scripts\activate.ps1"
 Clear-Host; Set-Location "$env:USERPROFILE"
 $host.ui.RawUI.WindowTitle = "Red V3 is ready to go!"

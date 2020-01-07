@@ -7,17 +7,14 @@ if %errorlevel% == 0 ( goto :run
 	goto :UACPrompt 
 )
 exit /b
-
 :UACPrompt
 echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
 echo UAC.ShellExecute "cmd.exe", "/c %~s0 %~1", "", "runas", 1 >> "%temp%\getadmin.vbs"
 "%temp%\getadmin.vbs"
 del "%temp%\getadmin.vbs"
-
 :isAdmin
 fsutil dirty query %systemdrive% >nul
 exit /b
-
 :run 
 title Contact me on Discord at its.Winter#6512
 cls
@@ -57,7 +54,7 @@ if %errorlevel% EQU 0 (
 	goto :server 
 )
 echo:Windows Enterprise not found..
-wmic os | findstr /I "home"
+wmic os | findstr /I "home" >nul
 if %errorlevel% EQU 0 (
 	echo:Windows Home Found!
 	cscript //nologo slmgr.vbs /ipk TX9XD-98N7V-6WMQ6-BX7FG-H8Q99 >nul
@@ -81,7 +78,8 @@ if %errorlevel% EQU 0 (
 	cscript //nologo slmgr.vbs /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX >nul
 	cscript //nologo slmgr.vbs /ipk MH37W-N47XK-V7XM9-C7227-GCQG9 >nul
 	goto :server
-) else ( goto :notsupported 
+) else ( 
+	goto :notsupported 
 )
 :server
 if %i% == 1 set KMS_Sev=kms8.MSGuides.com
@@ -97,13 +95,13 @@ cscript //nologo slmgr.vbs /ato | find /i "successfully" && (
 	echo:
 	echo:============================================================================
 	choice /n /c yn /m "Would you like to check out my other codes? [y,n]?"
-	if errorlevel 2 exit ) || ( echo:The connection to my KMS server failed! Trying to connect to another one...
+	if %errorlevel% 2 exit ) || ( echo:The connection to my KMS server failed! Trying to connect to another one...
 	echo:Please wait...
 	echo:
 	set /a i+=1
 	goto :server 
 )
-explorer "https://gitlab.kitware.com/its-Winter/randomcodes"
+explorer "https://www.github.com/its-winter/randomcodes"
 goto :halt
 :notsupported
 echo:============================================================================

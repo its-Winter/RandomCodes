@@ -3,22 +3,20 @@ title Folder Authentication
 color 0b
 call :isAdmin
 if %errorlevel% == 0 goto run
-if %errorlevel% NEQ 0 ( echo Requesting Administrative Privileges...
+if %errorlevel% NEQ 0 ( 
+    echo Requesting Administrative Privileges...
     title Requesting Administrative Privileges...
-	goto :UACPrompt )
+	goto :UACPrompt 
+)
 exit /b
-
 :UACPrompt
 echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
 echo UAC.ShellExecute "cmd.exe", "/c %~s0 %~1", "", "runas", 1 >> "%temp%\getadmin.vbs"
-
 "%temp%\getadmin.vbs"
 del "%temp%\getadmin.vbs"
-
 :isAdmin
 fsutil dirty query %systemdrive% >nul
 exit /b
-
 :run
 @echo off
 color 0b

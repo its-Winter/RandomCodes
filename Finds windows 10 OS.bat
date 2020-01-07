@@ -6,6 +6,7 @@
 :: Also added "timeout /T %random:~-1%" which adds a cool aspect to the script. 
 :: %random:~-1% picks a random number and times out the script for the random amount of seconds. I feel like this really makes
 :: it seem like the script is doing something lmao. c:
+:: Much more effective version of this in Powershell under the Powershell Folder in my github Repository.
  
 @echo off
 color 0b
@@ -34,6 +35,6 @@ timeout /T %random:~-1% >nul
 wmic os | find /i "Home Single Language">nul && ( echo:Windows Home Single Language found! & pause>nul ) || echo:You don't seem to have Windows Home Single Language...
 timeout /T %random:~-1% >nul
 wmic os | find /i "Home Country Specific">nul && ( echo:Windows Home Country Specific found! & pause>nul ) || echo:You don't seem to have Windows Home Country Specific...
-echo You don't seem to have any Windows 10 OS version that I can find...
+echo:You don't seem to have any Windows 10 OS version that I can find...
 :: This is just for if the script cannot find any of the above OS versions it states that it cannot find it.
 pause >nul

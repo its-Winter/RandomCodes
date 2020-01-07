@@ -15,7 +15,14 @@ if %ERRORLEVEL% NEQ 0 (
     echo:or the website is broken with IPv6 currently.
 )
 echo:
+:again
+echo:
 echo:Try again? [ y / n ]
 set /p input=
-if %input% == y goto startover
-if %input% == n exit
+if %input% == y goto :startover
+if %input% == n  ( 
+    exit
+) else (
+    echo:Illegal Response: %input%, try again.
+    goto :again
+)

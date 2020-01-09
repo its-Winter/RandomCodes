@@ -4,6 +4,12 @@ $host.ui.RawUI.WindowTitle = 'Counting your alpha packs!'
 Set-Location $($env:HOMEDRIVE + $env:HOMEPATH + '\Documents')
 New-Item -Name "Text Files" -ItemType Directory >$null
 Set-Location "Text Files"
+$totalfile = 'total.txt'
+$commonfile = 'common.txt'
+$uncommonfile = 'uncommon.txt'
+$rarefile = 'rare.txt'
+$epicfile = 'epic.txt'
+$legendaryfile = 'legendary.txt'
 if (*.txt) {
     $total = Get-Content total.txt
     $common = Get-Content common.txt
@@ -25,12 +31,6 @@ if (*.txt) {
     New-Item -Name $epicfile -Value $epic -ItemType File 
     New-Item -Name $legendaryfile -Value $legendary -ItemType File 
 }
-$totalfile = 'total.txt'
-$commonfile = 'common.txt'
-$uncommonfile = 'uncommon.txt'
-$rarefile = 'rare.txt'
-$epicfile = 'epic.txt'
-$legendaryfile = 'legendary.txt'
 Clear-Host
 function writeout {
     Set-Item -

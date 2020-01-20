@@ -7,13 +7,13 @@ Title Installing Paper 1.15...
 cd "%USERPROFILE%\Desktop"
 mkdir "Paper 1.15"
 cd "Paper 1.15"
-curl -sSL https://papermc.io/api/v1/paper/1.15.1/34/download --output paper1.15.1.jar
-java -Xmx%RAM%G -jar paper1.15.1.jar
+curl -sSL https://papermc.io/api/v1/paper/1.15.1/58/download --output paper1.15.1.jar
+java -Xmx%RAM%G -jar paper1.15.1.jar nogui
 echo:eula=true> eula.txt
 cls
 echo:Now set up the server properties and come back when you've saved your settings.
 "server.properties"
 pause
-echo:java -Xmx%RAM%G -Xms%RAM%G -jar paper1.15.jar> start.bat
+echo:java -Xmx%RAM%G -Xms%RAM%G -jar paper1.15.jar nogui> start.bat
 title Command Prompt
 cmd /K "start.bat"

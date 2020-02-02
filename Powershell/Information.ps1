@@ -7,7 +7,7 @@ function Get-Choice {
         $choice = Read-Host
         if ($choice -notin (1..3)) { Write-Warning "Illegal input: $choice - select a number between 1 and 3" }
     }
-    $choice
+    return $choice
 }
 function Get-BasicInfo {
     [CmdletBinding()]
@@ -15,7 +15,7 @@ function Get-BasicInfo {
         [Parameter(mandatory=$true, Position = 0)]
         $ComputerInfo
     )
-    $ComputerInfo | Format-List -Property CsUserName, TimeZone, CsName, OsName, OsVersion, OsSerialNumber
+    return $ComputerInfo | Format-List -Property CsUserName, TimeZone, CsName, OsName, OsVersion, OsSerialNumber
 }
 function Get-AdvancedInfo {
     [CmdletBinding()]
@@ -23,7 +23,8 @@ function Get-AdvancedInfo {
         [Parameter(mandatory=$true, Position = 0)]
         $ComputerInfo
     )
-    $ComputerInfo | Format-List -Property WindowsProductName, WindowsProductId, WindowsInstallDateFromRegistry, OsLastBootUpTime, OsArchitecture
+    return $ComputerInfo | Format-List -Property WindowsProductName, WindowsProductId, WindowsInstallDateFromRegistry, OsLastBootUpTime, OsArchitecture
+    return Get-CimInstance -ClassName Win32_VideoController | Format-List -Property Name
 }
 $allinfo = (Get-ComputerInfo)
 Write-Output @"

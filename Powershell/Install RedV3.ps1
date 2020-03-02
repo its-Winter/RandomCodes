@@ -1,118 +1,148 @@
+#requires -version 3
+If (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -eq $false) {
+      Start-Process powershell.exe -Argumentlist "-File", ("{0}" -f $MyInvocation.MyCommand.Source) -Verb RunAs
+}
 $ErrorActionPreference = 'SilentlyContinue'
 $ProgressPreference = 'SilentlyContinue'
-function Get-RedChoice {
+function Install-Prerequisites {
       [CmdletBinding()]
       param ()
-      [int]$Redchoice = $null
-      while ($Redchoice -notin (1..2))
+      $chococheck = choco
+      if ($chococheck)
       {
-            [int]$Redchoice = Read-Host
-            if ($Redchoice -notin (1..2))
+            [version]$chocoversion = ($(choco) -match 'Chocolatey').SubString(12,7)
+            if ($chocoversion -lt '0.10.12')
             {
-                  Write-Warning "Illegal Input: $Redchoice - Please give a number 1 or 2."
+                  Write-Warning "Chocolatey Version is out of date for how I upgrade packages. Will update."
+                  choco upgrade chocolatey --yes
             }
       }
-      return $Redchoice
-}
-function Install-Prerequisitesold {
-      [CmdletBinding()]
-      param (
-            [version]$MinimumVersion = '3.7.0'
-      )
-      $host.ui.rawui.WindowTitle = "Checking Python Version..."
-      [version]$pythonVersion = (-split $(py -3 -V))[-1]
-      if (-not $pythonVersion) { [version]$pythonVersion = (-split $(python -V))[-1] }
-      if (-not $pythonVersion)
-      {
-            Write-Host 'You do not have python installed, installing ...'
-            $InstallPython = $true
-      }
-      elseif ($MinimumVersion -gt $pythonVersion)
-      {
-            Write-Host "Python $pythonVersion detected, but $MinimumVersion or above is required. Updating"
-            $InstallPython = $true
-      }
-      $chococheck = choco
-      $host.ui.RawUI.WindowTitle = "Installing Prerequisites for Red V3.2 ..."
-      if (-not $chococheck) { Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) }
-      choco install git --params "/GitOnlyOnPath /WindowsTerminal" -y 
-      if ($InstallPython -eq $false) { choco install jre8 -y }
-      else { choco install jre8 python -y }
-      $ErrorActionPreference = 'Stop'
-}
-function Install-Prerequisitesnew {
-      [CmdletBinding()]
-      param (
-            [version]$MinimumVersion = '3.8.1'
-      )
-      $host.ui.rawui.WindowTitle = "Checking Python Version..."
-      [version]$pythonVersion = (-split $(py -3 -V))[-1]
-      if (-not $pythonVersion) { [version]$pythonVersion = (-split $(python -V))[-1] }
-      if (-not $pythonVersion)
-      {
-            Write-Host "You do not have python installed, installing ..."
-            $InstallPython = $true
-      }
-      elseif ($MinimumVersion -gt $pythonVersion)
-      {
-            Write-Host "Python $pythonVersion detected, but $MinimumVersion or above is required. Updating"
-            $InstallPython = $true
-      }
-      $chococheck = choco
       $host.ui.RawUI.WindowTitle = "Installing Prerequisites for Red V3.3 ..."
-      choco install visualstudio2019-workload-vctools adoptopenjdk11jre -y
-      if ($InstallPython)
+      if (-not $chococheck)
       {
-            choco install python3 -y
+            [string]$exepolicy = (Get-ExecutionPolicy)
+            if ($exepolicy -notmatch "Bypass" -or "AllSigned")
+            {
+                  Set-ExecutionPolicy Allsigned -Scope Process -Force
+            }
+            try {
+                  [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+            }
+            catch
+            {
+                  Write-Output @"
+Unable to set PowerShell to use TLS 1.2. This is required for contacting Chocolatey as of 03 FEB 2020. https://chocolatey.org/blog/remove-support-for-old-tls-versions.
+If you see underlying connection closed or trust errors, you may need to do one or more of the following:
+(1) upgrade to .NET Framework 4.5+ and PowerShell v3+
+(2) Call [System.Net.ServicePointManager]::SecurityProtocol = 3072; in PowerShell prior to attempting installation
+(3) specify internal Chocolatey package location (set $env:chocolateyDownloadUrl prior to install or host the package internally)
+(4) use the Download + PowerShell method of install. See https://chocolatey.org/docs/installation for all install options.
+"@
+            }
+            Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
       }
+      choco upgrade --install-if-not-installed git --params "/GitOnlyOnPath /WindowsTerminal" -y
+      choco upgrade --install-if-not-installed visualstudio2019-workload-vctools adoptopenjdk11jre -y
+      choco upgrade --install-if-not-installed python3 -y
 }
 function Set-VirtualEnvironmentDirectory {
 	[CmdletBinding()]
 	param ()
-	$userin = $null
-	while (-not $userin) {
+      [string]$userin = $null
+      [bool]$continue = $true
+      while ($continue)
+      {
             Write-Host @"
 Now time to setup the virtual environment.
 Where do you want the environment? Ex: path\to\venv
+Or leave blank to use default path: $env:USERPROFILE\redenv\
 "@
 		[string]$userin = Read-Host "> "
-		if ($userin -eq [string]::Empty) { Write-Warning "Illegal input: $userin - Please type a directory like the example." }
+            if ($userin -eq [string]::Empty -or $null)
+            {
+                  Write-Host "Are you sure you want to use the default path for the environment? y/n "
+                  [string]$yesno = Read-Host "> "
+                  switch ($yesno)
+                  {
+                        y {
+                              if (Test-Path ("{0}\redenv" -f $env:USERPROFILE))
+                              {
+                                    Write-Warning ("{0}\redenv is already used." -f $env:USERPROFILE)
+                              }
+                              else {
+                                    return "$(Join-Path -Path $env:USERPROFILE -ChildPath '\redenv')\"
+                                    $continue = $false
+                              }
+                        }
+                        n {
+                              continue
+                        }
+                        default {
+                              Write-Warning "You didn't specify a valid response: $yesno. please give 'y' or 'n' next time."
+                              continue
+                        }
+                  }
+                  # End Switch
+            }
+            # End IF
+            elseif ($userin)
+            {
+                  if (Test-Path "$(Join-Path $env:USERPROFILE -ChildPath $userin)")
+                  {
+                        Write-Warning ("{0} already exists and will not be overwritten." -f "$(Join-Path $env:USERPROFILE -ChildPath $userin)")
+                  }
+                  Write-Host ("Are you sure you want to use {0} as your venv path?" -f $userin)
+                  [string]$yesno = Read-Host "> "
+                  switch ($yesno)
+                  {
+                        y {
+                              return "$(Join-Path $env:USERPROFILE $userin)\"
+                              $continue = $false
+                        }
+                        n { continue }
+                        default {
+                              Write-Error -Category InvalidArgument -TargetObject $yesno -Message "You failed to give me a valid response.. Aborting.."
+                              continue
+                        }
+                  }
+            }
       }
-      return "$(Join-Path $env:USERPROFILE $userInput)\"
 }
-Write-Host @"
-Please select a version of Red to install.
-1) Red V3.3 (latest)
-2) Red V3.2.3
-"@
-[int]$Redchoice = Get-RedChoice
-switch ($Redchoice)
+Install-Prerequisites
+if ($(python -V) -notmatch '3.8.[1-9]')
 {
-      1 { Install-Prerequisitesnew }
-      2 { Install-Prerequisitesold }
-}
-if ((python -V) -notmatch '3.8.1')
-{
-      [string]$newpath = "$env:HOMEDRIVE\python38\scripts\;$env:HOMEDRIVE\python38\;$env:Path"
+      [string]$newpath = ("{0}\python38\scripts\;{0}\python38\;{1}" -f $env:HOMEDRIVE, [System.Environment]::GetEnvironmentVariable("Path"))
       [System.Environment]::SetEnvironmentVariable("Path", "$newpath", "User")
-      if (Test-Path "$env:USERPROFILE\AppData\Local\Programs\Python\Python38-32\")
+      if (Test-Path ("{0}\AppData\Local\Programs\Python\Python38-32\" -f $env:USERPROFILE))
       {
-            [string]$pypath = "$env:USERPROFILE\AppData\Local\Programs\Python\Python38-32\;$env:Path"
+            [string]$pypath = ("{0}\AppData\Local\Programs\Python\Python38-32\;{1}" -f $env:USERPROFILE, $env:Path)
             [System.Environment]::SetEnvironmentVariable("Path", "$pypath")
       }
+      RefreshEnv.cmd
 }
 Write-Host "Installed Red Prerequisites!"
 Start-Sleep 1
 $host.ui.RawUI.WindowTitle = "Setup the Virtual Environment!"
-$venv = Set-VirtualEnvironmentDirectory
+[string]$venv = Set-VirtualEnvironmentDirectory
 Write-Host "Setting up venv now!"
-$pyexe = ($env:USERPROFILE + "\AppData\Local\Programs\Python\Python38-32\python.exe")
+[string]$pyexe = ((Get-Command python -All | Where-Object -Property Version -Like 3.8.*).Source)
 & "$pyexe" -m venv "$venv"
 & "$venv\Scripts\activate.ps1"
 python -m pip install -U pip setuptools wheel
 python -m pip install -U Red-DiscordBot
 pip install --upgrade pip >$null
-Write-Output "Red V3 is ready to go!"
+try
+{ 
+      redbot -help | Out-Null
+      Write-Output "Red V3 is ready to go!"
+}
+catch
+{
+      Write-Warning "Something went wrong attempting to use red."
+      Write-Host -ForegroundColor Red $_
+      Pause
+      Exit
+}
 Start-Sleep 5
 redbot-setup
 redbot -help

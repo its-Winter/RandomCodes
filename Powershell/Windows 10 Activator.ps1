@@ -1,8 +1,8 @@
+#requires -version 1
 If (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -eq $false) {
       Start-Process powershell.exe -Argumentlist "-File", ('"{0}"' -f $MyInvocation.MyCommand.Source) -Verb RunAs
 }
-Clear-Host
-[string]$osversion = Get-CimInstance -ClassName Win32_OperatingSystem | Select-Object -ExpandProperty Caption
+[string]$WinEdition = Get-CimInstance -ClassName Win32_OperatingSystem | Select-Object -ExpandProperty Caption
 [string]$slmgr = "$env:WinDir\System32\slmgr.vbs"
 Write-Host @"
 ============================================================================
@@ -28,7 +28,7 @@ cscript //nologo $slmgr /ckms | Out-Null
 cscript //nologo $slmgr /upk | Out-Null
 cscript //nologo $slmgr /cpky | Out-Null
 [int]$i = 1
-switch -regex ($osversion) {
+switch -regex ($WinEdition) {
       enterprise {
             Write-Host "Windows Enterprise Found!"
 	      cscript //nologo $slmgr /ipk NPPR9-FWDCX-D2C8J-H872K-2YT43 | Out-Null
@@ -60,49 +60,47 @@ switch -regex ($osversion) {
             break
       }
       default {
-            Write-Warning "Your version: $osversion, is not supported!"
-            Exit-PSSession
+            Write-Warning "Your version: $WinEdition, is not supported!"
+            Exit
       }
 }
+[int]$i = 1
 function Set-KMServer {
       [CmdletBinding()]
       param (
-            [int]$i,
-            [string]$slmgr = "$env:WinDir\System32\slmgr.vbs"
+            [Parameter(Position = 0)]
+            [ValidateSet(1, 2)]
+            [int]
+            $i,
+            [string]
+            $slmgr = "$env:WinDir\System32\slmgr.vbs"
       )
       switch ($i) {
             1 { [string]$KMServer = '193.29.63.133:1688'; break }
             2 { [string]$KMServer = '185.213.26.137:1688'; break }
+            default
+            {
+                  Write-Host "Looks like there was an issue trying to activate. idk either man."
+                  Pause
+                  Exit
+            }
       }
       cscript //nologo $slmgr /skms $KMServer | Out-Null
 }
-function Invoke-Activation {
-      [CmdletBinding()]
-      param (
-            [string]$slmgr = "$env:WinDir\System32\slmgr.vbs",
-            [string]$WinEdition      
-      )
-      cscript //nologo $slmgr /ato | findstr "successfully" | Out-Null
-      switch ($?) {
-            $false { 
-                  Write-Warning "Activation Failed, Retrying..."
-                  Set-KMServer -i 2
-                  Invoke-Activation -WinEdition $WinEdition
-            }
-            $true {
-                  Write-Host "$WinEdition Activated Successfully!"
-                  Write-Host "Press any key to end script."
-                  Pause >$null
-                  Exit-PSSession
-            }
-            Default {
-                  Write-Host "Contact me on Discord at its.winter#6512 for support: you really shouldn't recieve this message."
-                  Exit-PSSession
-            }
-      }
-}
-Write-Host "Activating your windows..."
-Set-KMServer -i 1
+Write-Host "Activating your Windows..."
+Set-KMServer $i
 Write-Host "============================================================================"
-Invoke-Activation -WinEdition $osversion
-Exit-PSSession
+try {
+      cscript //nologo $slmgr /ato | findstr "successfully"
+}
+catch {
+      "Activatation Failed, Retrying..."
+      "Error type: $_"
+      $i++
+      Set-KMServer $i
+      cscript //nologo $slmgr /ato | findstr "successfully"
+}
+finally {
+      Pause
+}
+Exit

@@ -4,7 +4,7 @@ If (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]:
 }
 [System.Console]::ForegroundColor = 'White'
 $ProgressPreference = 'SilentlyContinue'
-$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'SilentlyContinue'
 Set-Location "$env:USERPROFILE\Documents"
 try { Start-Transcript "Minecraft Installation.ps1.txt" }
 catch { Start-Transcript ("Minecraft Installation.ps1 {0}.txt" -f ((1..999) | Get-Random)) }
@@ -105,7 +105,7 @@ If you see underlying connection closed or trust errors, you may need to do one 
 [int]$RAMinGB = [System.Math]::Round($RAMinBytes / 1GB)
 [int]$AvalRAM = $RAMinGB - 4
 if ($RAMinGB -le 8) { Write-Warning ("With only {0}GB of RAM, it is not recommended to run a server as it will most likely lag your system." -f $RAMinGB) }
-try { Get-Command java }
+try { Get-Command java | Out-Null }
 catch {
       Write-Host @"
 You do not have Java Offline installed..

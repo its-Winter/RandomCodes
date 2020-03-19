@@ -47,7 +47,10 @@ How much would you like to dedicate to your minecraft server?
 function Install-Java
 {
       [CmdletBinding()]
-      param ( [switch]$choco )
+      param (
+            [Parameter()]
+            [switch]$choco
+      )
       if ($choco)
       {
             $chococheck = choco
@@ -56,32 +59,46 @@ function Install-Java
                   [version]$chocoversion = ($(choco) -match 'Chocolatey').SubString(12,7)
                   if ($chocoversion -lt '0.10.12')
                   {
-                        Write-Warning "Chocolatey Version is out of date, will update."
-                        choco upgrade chocolatey --yes
+                        Write-Warning "Chocolatey Version is out of date for how I install java. Do you want to update? [Y]es [n]o"
+                        $yesno = Read-Host "> "
+                        switch -Wildcard ($yesno)
+                        {
+                              'n'
+                              {
+                                    Write-Host "Well then we need to install java the old fashioned way..."
+                                    [bool]$oldfashioned = $true
+                                    break
+                              }
+                              default
+                              {
+                                    Start-Sleep -Seconds 3
+                                    Start-Process powershell.exe -ArgumentList "choco", "upgrade", "chocolatey", "-y" -Wait -Verb RunAs
+                              }
+                        }
+                        continue
                   }
             }
-            elseif (-not $chococheck)
+            if (-not $chococheck)
             {
-                  if ((Get-ExecutionPolicy) -notmatch "Bypass" -or "AllSigned") { Set-ExecutionPolicy Allsigned -Scope Process -Force }
+                  if (Get-ExecutionPolicy -notmatch "Bypass" -or "AllSigned") { Set-ExecutionPolicy Allsigned -Scope Process -Force }
                   try { [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072 }
                   catch
                   {
-                        Write-Host @"
+                        Write-Warning @"
 Unable to set PowerShell to use TLS 1.2. This is required for contacting Chocolatey as of 03 FEB 2020. https://chocolatey.org/blog/remove-support-for-old-tls-versions.
 If you see underlying connection closed or trust errors, you may need to do one or more of the following:
 (1) upgrade to .NET Framework 4.5+ and PowerShell v3+
 (2) Call [System.Net.ServicePointManager]::SecurityProtocol = 3072; in PowerShell prior to attempting installation
 (3) specify internal Chocolatey package location (set $env:chocolateyDownloadUrl prior to install or host the package internally)
 (4) use the Download + PowerShell method of install. See https://chocolatey.org/docs/installation for all install options.
-"@ -ForegroundColor Yellow
+"@
                   }
                   Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
             }
-            choco upgrade --install-if-not-installed adoptopenjdk11jre -y
-            choco upgrade adoptopenjdk11jre -y
+            Start-Process powershell.exe -ArgumentList "choco", "upgrade", "--install-if-not-installed", "adoptopenjdk11jre", "-y" -Wait -Verb RunAs
             RefreshEnv.cmd
       }
-      else
+      elseif ($choco -eq $false -or $oldfashioned -eq $true)
       {
             $javaweb = (Invoke-WebRequest -Uri "https://www.java.com/en/download/manual.jsp" -MaximumRedirection 0)
             if (($env:PROCESSOR_ARCHITECTURE).SubString(3,2) -eq 64)

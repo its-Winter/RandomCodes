@@ -16,7 +16,7 @@ function Get-BasicInfo
 {
       [CmdletBinding()]
       param (
-            [Parameter(Mandatory = $true, Position = 0)]
+            [Parameter(Mandatory, Position = 0)]
             $ComputerInfo
       )
       return $ComputerInfo | Format-List -Property CsUserName, TimeZone, CsName, OsName, OsVersion, OsSerialNumber
@@ -25,7 +25,7 @@ function Get-AdvancedInfo
 {
       [CmdletBinding()]
       param (
-            [Parameter(Mandatory = $true, Position = 0)]
+            [Parameter(Mandatory, Position = 0)]
             $ComputerInfo
       )
       return $ComputerInfo | Format-List -Property WindowsProductName, WindowsProductId, WindowsInstallDateFromRegistry, OsLastBootUpTime, OsArchitecture
@@ -35,7 +35,7 @@ function Get-VideoDetails
 {
       [CmdletBinding()]
       param (
-            [Parameter(Mandatory = $true, Position = 0)]
+            [Parameter(Mandatory, Position = 0)]
             $ComputerInfo
       )
       $videoinfo = (Get-CimInstance -Class Win32_VideoController | Format-List -Property VideoProcessor, VideoModeDescription, DriverDate, DriverVersion, CurrentRefreshRate, MaxRefreshRate)

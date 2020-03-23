@@ -1,5 +1,5 @@
 #requires -version 3
-If (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -eq $false) {
+If (([Security.Principal.WindowsIdentity]::GetCurrent().Owner.IsWellKnown("BuiltInAdministratorsSid")) -eq $false) {
       Start-Process powershell.exe -Argumentlist "-File", ("{0}" -f $MyInvocation.MyCommand.Source) -Verb RunAs
 }
 $ErrorActionPreference = 'SilentlyContinue'

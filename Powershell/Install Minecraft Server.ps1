@@ -1,5 +1,5 @@
 #requires -version 3
-If (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -eq $false) {
+If (([Security.Principal.WindowsIdentity]::GetCurrent().Owner.IsWellKnown("BuiltInAdministratorsSid")) -eq $false) {
       Start-Process powershell.exe -Argumentlist "-File", ('"{0}"' -f $MyInvocation.MyCommand.Source) -Verb RunAs
 }
 [System.Console]::ForegroundColor = 'White'
@@ -169,7 +169,7 @@ switch ($_input)
       4 {
             [version]$version = "1.15.2"
             [string]$executable = "Paper1.15.2Server.jar"
-            Invoke-WebRequest -Uri "https://papermc.io/api/v1/paper/1.15.2/118/download" -MaximumRedirection 1 -OutFile "$executable"
+            Invoke-WebRequest -Uri "https://papermc.io/api/v1/paper/1.15.2/143/download" -MaximumRedirection 1 -OutFile "$executable"
       }
       5 {
             [version]$version = "1.14.4"

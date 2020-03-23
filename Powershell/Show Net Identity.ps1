@@ -27,12 +27,18 @@ Function Get-InsideNet {
             "PreferredLifetime"
       )
       [array]$InsideNetDetails = Get-NetIPAddress | Select-Object -Property $properties |
-                                                      Sort-Object -Property InterfaceAlias |
-                                                      Format-Table
+                                                    Sort-Object -Property InterfaceAlias |
+                                                    Format-Table
       return $InsideNetDetails
 }
-try { Get-InsideNet }
+try { 
+      Get-InsideNet
+      Write-Verbose -Message "Interal IPs"
+}
 catch { Write-Host "There was an issue getting internal net data." }
-try { Get-OutsideNet }
+try { 
+      Get-OutsideNet
+      Write-Verbose -Message "External IPs"
+}
 catch { Write-Host "There was an issue getting external net data." }
-[System.Console]::Title = "Showing Net Details"
+finally { [System.Console]::Title = "Showing Net Details"; Pause }

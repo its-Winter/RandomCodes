@@ -17,7 +17,7 @@ function Install-Prerequisites {
                   choco upgrade chocolatey --yes
             }
       }
-      $host.ui.RawUI.WindowTitle = "Installing Prerequisites for Red V3.3 ..."
+      [System.Console]::Title = "Installing Prerequisites for Red V3.3 ..."
       if (-not $chococheck)
       {
             [string]$exepolicy = (Get-ExecutionPolicy)
@@ -122,7 +122,7 @@ if ($(python -V) -notmatch '3.8.[1-9]')
 }
 Write-Host "Installed Red Prerequisites!"
 Start-Sleep 1
-$host.ui.RawUI.WindowTitle = "Setup the Virtual Environment!"
+[System.Console]::Title = "Setup the Virtual Environment!"
 [string]$venv = Set-VirtualEnvironmentDirectory
 Write-Host "Setting up venv now!"
 [string]$pyexe = ((Get-Command python -All | Where-Object -Property Version -Like 3.8.*).Source)

@@ -28,7 +28,8 @@ cscript //nologo $slmgr /ckms | Out-Null
 cscript //nologo $slmgr /upk | Out-Null
 cscript //nologo $slmgr /cpky | Out-Null
 [int]$i = 1
-switch -regex ($WinEdition) {
+switch -regex ($WinEdition)
+{
       enterprise {
             Write-Host "Windows Enterprise Found!"
 	      cscript //nologo $slmgr /ipk NPPR9-FWDCX-D2C8J-H872K-2YT43 | Out-Null
@@ -65,7 +66,8 @@ switch -regex ($WinEdition) {
       }
 }
 [int]$i = 1
-function Set-KMServer {
+function Set-KMServer
+{
       [CmdletBinding()]
       param (
             [Parameter(Position = 0)]
@@ -75,7 +77,8 @@ function Set-KMServer {
             [string]
             $slmgr = "$env:WinDir\System32\slmgr.vbs"
       )
-      switch ($i) {
+      switch ($i)
+      {
             1 { [string]$KMServer = '193.29.63.133:1688'; break }
             2 { [string]$KMServer = '185.213.26.137:1688'; break }
             default

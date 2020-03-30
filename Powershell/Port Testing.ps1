@@ -6,8 +6,7 @@ Function Test-Port {
             [Parameter(Mandatory, Position = 0)]
             [string]$port
       )
-      Write-Host ("Testing port {0}..." -f $port)
-      Invoke-RestMethod -Uri ("https://ifconfig.co/port/{0}" -f $port) -MaximumRedirection 0 | Format-List
+      Invoke-RestMethod -Uri ("https://ifconfig.co/port/{0}" -f $port) -MaximumRedirection 0
 }
 Function Get-Port {
       [CmdletBinding()]
@@ -21,8 +20,10 @@ Function Get-Port {
       }
       return $portchoice
 }
-while (1 -eq 1)
+while ($true)
 {
       [int]$_userport = Get-Port
-      Test-Port "$_userport"
+      $portresults = Test-Port "$_userport"
+      if ($portresults.reachable -eq $false) { Write-Host ("Could not reach port {0}." -f $_userport) -ForegroundColor Red }
+      else { $portresults | Format-List }
 }

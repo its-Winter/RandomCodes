@@ -7,11 +7,7 @@ import os
 import sys
 import asyncio
 from dotenv import load_dotenv
-
-def get_token():
-      load_dotenv()
-      token = os.getenv("token")
-      return token
+load_dotenv()
 
 Bot = commands.Bot(command_prefix="!", description="bot", case_insensitive=True, owner_id=261401343208456192)
 
@@ -23,16 +19,17 @@ Bot = commands.Bot(command_prefix="!", description="bot", case_insensitive=True,
 # logger.addHandler(handler)
 @Bot.event
 async def on_ready():
-      print(f"Connected as {Bot.user}")
+      print(
+            f"Discord.py: {discord.__version__}\n"
+            f"Python: {sys.version.split(' ')[0]}\n"
+            f"Connected as {Bot.user}\n"
+      )
       # Bot.load_extension('cogs.ping')
 
-@Bot.event
-async def on_message(message):
-      if message.author.id != Bot.user.id:
-            try:
-                  await message.channel.send('i see the message')
-            except:
-                  print('bruv')
+# @Bot.event
+# async def on_message(message):
+#       pass
+
 
 def loadAllCogs(bot):
       # loads cogs
@@ -41,11 +38,11 @@ def loadAllCogs(bot):
                   filename = cog.split(".")[0]
                   try:
                         bot.load_extension(f"cogs.{filename}")
-                        print(f"[Cog Management] Cog Loaded: {filename}")
+                        print(f"[Cogs] Cog Loaded: {filename}")
                   except (errors.ExtensionNotFound, errors.ExtensionAlreadyLoaded, errors.NoEntryPointError,
                         errors.ExtensionFailed) as e:
-                        print(f"[Cog Management] Error loading cog: {filename}; Error: {e}")
+                        print(f"[Cogs] Error loading cog: {filename}; Error: {e}")
 
 loadAllCogs(Bot)
-token = get_token()
-Bot.run(token)
+Bot.run(os.getenv("token"))
+Bot.change_presence(activity=discord.ActivityType.playing, status="with my python")

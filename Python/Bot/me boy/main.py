@@ -1,34 +1,65 @@
 import discord
+from discord import message
 from discord.ext import commands
 from discord.ext.commands import context, errors
-import requests
-import logging
-import os
-import sys
-import asyncio
 from dotenv import load_dotenv
+import json
+import os
+import platform
+import asyncio
+import time
+
 load_dotenv()
 
 Bot = commands.Bot(command_prefix="!", description="bot", case_insensitive=True, owner_id=261401343208456192)
 
-# logging.basicConfig(level=logging.INFO)
-# logger = logging.getLogger('discord')
-# logger.setLevel(logging.DEBUG)
-# handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-# handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-# logger.addHandler(handler)
+globalvars = {
+      "bot": {
+            "user": "",
+            "username": "",
+            "token": os.getenv("token"),
+            "appinfo": "",
+            "owner": ""
+      },
+      "discord": {
+            "name": "discord",
+            "version": discord.__version__,
+      },
+      "python": {
+            "name": "python",
+            "version": platform.python_version()
+      }
+}
+
 @Bot.event
 async def on_ready():
+      global globalvars
+      globalvars['bot']['user'] = Bot.user
+      globalvars['bot']['username'] = Bot.user.name + "#" + Bot.user.discriminator
+      globalvars['bot']['appinfo'] = await Bot.application_info()
+      globalvars['bot']['owner'] = globalvars['bot']['appinfo'].owner
       print(
-            f"Discord.py: {discord.__version__}\n"
-            f"Python: {sys.version.split(' ')[0]}\n"
-            f"Connected as {Bot.user}\n"
+            "\n"
+            f"Discord.py:   {globalvars['discord']['version']}\n"
+            f"Python:       {globalvars['python']['version']}\n"
+            f"Connected as  {globalvars['bot']['username']}\n"
+            f"Owner:        {globalvars['bot']['owner']}\n"
       )
-      # Bot.load_extension('cogs.ping')
+      # json.dump(globalvars, 'global.json', indent=6)
 
-# @Bot.event
-# async def on_message(message):
-#       pass
+
+      # print('Bot is ready to go.. What do you want the status of the bot to start out as?')
+      # activity = input('> ')
+      # print('Any message?')
+      # message = input('> ')
+      await Bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="with myself."))
+
+
+
+@Bot.event
+async def on_message(message):
+
+      await Bot.process_commands(message)
 
 
 def loadAllCogs(bot):
@@ -36,6 +67,8 @@ def loadAllCogs(bot):
       for cog in os.listdir("cogs"):
             if cog.endswith("py"):
                   filename = cog.split(".")[0]
+                  if filename in ["globals", "Audio", "decorators"]:
+                        continue
                   try:
                         bot.load_extension(f"cogs.{filename}")
                         print(f"[Cogs] Cog Loaded: {filename}")
@@ -43,6 +76,23 @@ def loadAllCogs(bot):
                         errors.ExtensionFailed) as e:
                         print(f"[Cogs] Error loading cog: {filename}; Error: {e}")
 
+def getglobal(*args):
+      pass
+
+
+def checkGlobals():
+      if os.path.exists('global.json') is False:
+            print("Globals.json is not found. Writing...")
+            with open('global.json', 'r+') as j:
+                  json.dump(globalvars, j, indent=6)
+      with open('globals.json', 'r+') as j:
+            try:
+                  data = json.load(j, indent=6)
+            except FileNotFoundError:
+                  print("Globals.json is not found. Writing...")
+                  json.dump(globalvars, j, indent=6)
+
+
 loadAllCogs(Bot)
-Bot.run(os.getenv("token"))
-Bot.change_presence(activity=discord.ActivityType.playing, status="with my python")
+token = globalvars['bot']['token']
+Bot.run(token)

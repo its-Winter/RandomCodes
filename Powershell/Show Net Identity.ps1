@@ -13,7 +13,7 @@ Function Get-OutsideNet {
             "Service Version"   = $OutsideDetails.user_agent.version;
             "Full Service Name" = $OutsideDetails.user_agent.comment;
       }
-      return $OutsideNet | Format-Table
+      return $OutsideNet
 }
 Function Get-InsideNet {
       [CmdletBinding()]
@@ -27,17 +27,16 @@ Function Get-InsideNet {
             "PreferredLifetime"
       )
       [array]$InsideNetDetails = Get-NetIPAddress | Select-Object -Property $properties |
-                                                    Sort-Object -Property InterfaceAlias |
-                                                    Format-Table
+                                                    Sort-Object -Property InterfaceAlias
       return $InsideNetDetails
 }
 try { 
-      Get-InsideNet
+      Get-InsideNet | Format-Table
       Write-Verbose -Message "Interal IPs"
 }
 catch { Write-Host "There was an issue getting internal net data." }
 try { 
-      Get-OutsideNet
+      Get-OutsideNet | Format-Table
       Write-Verbose -Message "External IPs"
 }
 catch { Write-Host "There was an issue getting external net data." }

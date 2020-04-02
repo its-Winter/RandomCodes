@@ -62,7 +62,7 @@ async def on_message(message):
       await Bot.process_commands(message)
 
 
-def loadAllCogs(bot):
+def loadallcogs(bot):
       # loads cogs
       for cog in os.listdir("cogs"):
             if cog.endswith("py"):
@@ -93,6 +93,6 @@ def checkGlobals():
                   json.dump(globalvars, j, indent=6)
 
 
-loadAllCogs(Bot)
+loadallcogs(Bot)
 token = globalvars['bot']['token']
 Bot.run(token)

@@ -125,12 +125,22 @@ Start-Sleep 1
 [System.Console]::Title = "Setup the Virtual Environment!"
 [string]$venv = Set-VirtualEnvironmentDirectory
 Write-Host "Setting up venv now!"
-[string]$pyexe = ((Get-Command python -All | Where-Object -Property Version -Like 3.8.*).Source)
+try
+{
+      [string]$pyexe = (Get-Command python -All | Where-Object -Property Version -Like 3.8.1*).Source
+}
+catch
+{
+      Write-Error -RecommendedAction Stop -Message "There was an error finding a python executable with a version of 3.8.1 or above."
+      Stop-Transcript
+      Pause
+      Exit
+}
 & "$pyexe" -m venv "$venv"
 & "$venv\Scripts\activate.ps1"
 python -m pip install -U pip setuptools wheel
 python -m pip install -U Red-DiscordBot
-pip install --upgrade pip >$null
+pip install --upgrade pip | Out-Null
 try
 { 
       redbot -help | Out-Null

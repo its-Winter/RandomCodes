@@ -18,8 +18,8 @@ if not os.path.exists(log_file):
 if os.path.exists(output_file_name):
     print(f"The output file '{output_file_name}' already exists!\nDo you want to overwrite it? y/n")
     choice = input('> ').lower()
-    if choice == 'n' or choice == 'no':
-        raise FileExistsError(f"{output_file_name} already exists!")
+    if choice in ['n', 'no', 'nope']:
+        raise PermissionError(f"User did not want to overwrite {output_file_name}")
 
 word_counts = {word: 0 for word in words}  # Initialize word counts to zero
 flagged_lines = list()

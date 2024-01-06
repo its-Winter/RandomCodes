@@ -12,13 +12,19 @@ log_file = args.log
 output_file_name = args.output or 'output_from_log.txt'
 words = args.words
 
+if not os.path.exists(log_file):
+    raise FileNotFoundError(f'{log_file} does not exist!')
+
+if os.path.exists(output_file_name):
+    print(f"The output file '{output_file_name}' already exists!\nDo you want to overwrite it? y/n")
+    choice = input('> ').lower()
+    if choice == 'n' or choice == 'no':
+        raise FileExistsError(f"{output_file_name} already exists!")
+
 word_counts = {word: 0 for word in words}  # Initialize word counts to zero
 flagged_lines = list()
 offenders_list = set()  # no duplicates
 offenders = dict()
-
-if not os.path.exists(log_file):
-    raise FileNotFoundError(f'{log_file} does not exist!')
 
 with open(log_file, 'r', encoding='utf-8') as file:
     lines = file.readlines()
@@ -37,12 +43,6 @@ for line in lines:
         name = match.group(1)
         steam_id = match.group(2)
         offenders[name] = steam_id
-
-if os.path.exists(output_file_name):
-    print(f"The output file '{output_file_name}' already exists!\nDo you want to overwrite it? y/n")
-    choice = input('> ').lower()
-    if choice == 'n' or choice == 'no':
-        raise FileExistsError(f"{output_file_name} already exists!")
 
 with open(output_file_name, 'w', encoding='utf-8') as offender_file:
     for k, v in offenders.items():
